@@ -7,9 +7,9 @@ const Cell = ({ date }: CellProps) => {
 
 
     return (
-        <div className="text-center">
-            <input type="radio" value={date} className="accent-company-primary" />
-        </div>
+        <>
+            <input type="radio" value={date} name="bookDate" className="accent-company-primary" />
+        </>
     )
 }
 
