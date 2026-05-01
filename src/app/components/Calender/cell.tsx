@@ -1,14 +1,23 @@
 
 type CellProps = {
-    date: number
+    value: string,
+    selected: boolean,
+    onSelect: (value: string) => void
+
 }
 
-const Cell = ({ date }: CellProps) => {
+const Cell = ({ value, selected, onSelect }: CellProps) => {
 
 
     return (
         <>
-            <input type="radio" value={date} name="bookDate" className="accent-company-primary" />
+            <input
+                type="radio"
+                checked={selected}
+                onChange={() => onSelect(value)}
+                name="bookDate"
+                className="accent-company-primary"
+            />
         </>
     )
 }

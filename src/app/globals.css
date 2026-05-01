@@ -8,6 +8,7 @@
 body {
   height: 100vh;
   margin: 0 auto;
-  background: var(--color-company-background);
   color: var(--color-company-primary);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(../../public/Images/background-Image.jpg);
+  background-size: cover;
 }
