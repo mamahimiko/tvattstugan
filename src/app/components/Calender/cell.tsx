@@ -13,6 +13,7 @@ const Cell = ({ value, selected, onSelect }: CellProps) => {
         <>
             <input
                 type="radio"
+                value={value}
                 checked={selected}
                 onChange={() => onSelect(value)}
                 name="bookDate"

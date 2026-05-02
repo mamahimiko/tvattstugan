@@ -5,9 +5,6 @@ export const getDaysInMonth = (year: number, month: number) => {
     return new Date(year, month, 0).getDate();
 }
 
-
-
-
 const today = new Date();
 export const thisYear: number = today.getFullYear()
 export const thisMonth: number = today.getMonth()

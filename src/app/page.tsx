@@ -1,13 +1,15 @@
 "use client";
 import Calender from "./components/Calender/calender";
+import MobileCalender from "./components/Calender/mobileCalender";
 import BookButton from "./components/Button/bookButton";
+import { useIsMobile } from "./hook/isMobile";
 import { useState, useEffect } from "react";
 import { thisYear, thisMonth, monthArray } from "./components/Calender/calenderData";
 import { dateFormat } from "./components/Data/data";
 import { AiFillPlusCircle } from "react-icons/ai";
 
 export default function Home() {
-
+  const isMobile = useIsMobile()
   const thisMonthIndex = thisMonth
 
   const [currentMonthIndex, setCurrentMonthIndex] = useState<number>(thisMonthIndex)
@@ -56,29 +58,40 @@ export default function Home() {
 
 
   return (
-    <div className="text-center bg-company-background shadow-xl/30 mx-10" >
-      <div className="flex place-content-between m-2">
+    <div className="text-center bg-company-background shadow-xl/30 md:mx-10 lg:mx-10" >
+      <div className="flex place-content-between m-2 text-gray-400">
         <AiFillPlusCircle />
         <AiFillPlusCircle />
       </div>
-      <div className="m-10">
+      <div className=" md:m-2 lg:m-10 ">
         <h1 className="text-center text-5xl font-extrabold">Tvättstugan Bokningtavla</h1>
       </div>
-      <div>
+      <div className="md: p-5">
         <p className="text-1xl">You Booked </p>
         <p className="text-3xl">{showBookedDate}</p>
       </div>
       <div className="flex justify-center py-8">
-        <Calender
-          selectedValue={selectedValue}
-          setSelectedValue={setSelectedValue}
-          currentMonthIndex={currentMonthIndex}
-          selectedYear={selectedYear}
-          onNext={nextMonthToggle}
-          onPrev={backMonthToggle} />
+        {isMobile ? (
+          <MobileCalender
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
+            currentMonthIndex={currentMonthIndex}
+            selectedYear={selectedYear}
+            onNext={nextMonthToggle}
+            onPrev={backMonthToggle} />
+        ) : (
+          < Calender
+            selectedValue={selectedValue}
+            setSelectedValue={setSelectedValue}
+            currentMonthIndex={currentMonthIndex}
+            selectedYear={selectedYear}
+            onNext={nextMonthToggle}
+            onPrev={backMonthToggle} />
+        )
+        }
       </div>
       <BookButton handleBook={bookHandleClick} />
-      <div className="flex place-content-between m-2">
+      <div className="flex place-content-between m-2 text-gray-400">
         <AiFillPlusCircle />
         <AiFillPlusCircle />
       </div>
