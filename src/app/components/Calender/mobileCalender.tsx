@@ -42,120 +42,48 @@ const MobileCalender = ({ selectedValue, setSelectedValue, currentMonthIndex, se
         lastDays.push(i)
     }
 
+    const datesArray: number[][] = [firstSevenDays, secondSevenDays, thirdSevenDays, forthSevenDays, lastDays]
+    console.log(datesArray)
+
 
     return (
         <div className="">
             <ThisDate currentMonthIndex={currentMonthIndex} year={selectedYear} onNext={onNext} onPrev={onPrev} />
             <div className="max-w-300 text-center p-3 flex flex-col justify-center">
-                <div className="grid grid-cols-8 gap-2">
-                    <div></div>
-                    {firstSevenDays.map((date: number) =>
-                        <div key={date}><p className="font-bold">{date}</p></div>)}
-                </div>
-                {timeRange.map((range: string, index: number) => (
-                    <div key={index} className="grid grid-cols-8 gap-2">
-                        <p className="font-bold text-xs">{range}</p>
-                        {firstSevenDays.map((date: number) => (
-                            <div key={`${range}${date}`}>
-                                <Cell
-                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    onSelect={setSelectedValue}
-                                />
+                <>
+                    {datesArray.map((dates, index) =>
+                        <>
+                            <div className="grid grid-cols-8 gap-2">
+                                <div></div>
+                                {firstSevenDays.map((date: number) =>
+                                    <div key={date}><p className="font-bold">{date}</p></div>)}
                             </div>
-                        ))}
-                    </div>
-                ))}
-                <div className="py-8">
-                    <hr></hr>
-                </div>
-                <div className="grid grid-cols-8 gap-2">
-                    <div></div>
-                    {secondSevenDays.map((date: number) =>
-                        <div key={date}><p className="font-bold">{date}</p></div>)}
-                </div>
-                {timeRange.map((range: string, index: number) => (
-                    <div key={index} className="grid grid-cols-8 gap-2">
-                        <p className="font-bold text-xs" key={index}>{range}</p>
-                        {secondSevenDays.map((date: number) => (
-                            <div key={`${range}${date}`}>
-                                <Cell
-                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    onSelect={setSelectedValue}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-                <div className="py-8">
-                    <hr></hr>
-                </div>
-                <div className="grid grid-cols-8 gap-2">
-                    <div className="font-bold"></div>
-                    {thirdSevenDays.map((date: number) =>
-                        <div key={date}><p className="font-bold">{date}</p></div>)}
-                </div>
-                {timeRange.map((range: string, index: number) => (
-                    <div key={index} className="grid grid-cols-8 gap-2">
-                        <p className="font-bold  text-xs" key={index}>{range}</p>
-                        {thirdSevenDays.map((date: number) => (
-                            <div key={`${range}${date}`}>
-                                <Cell
-                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    onSelect={setSelectedValue}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-                <div className="py-8">
-                    <hr></hr>
-                </div>
-                <div className="grid grid-cols-8 gap-2">
-                    <div className="font-bold"></div>
-                    {forthSevenDays.map((date: number) =>
-                        <div key={date}><p className="font-bold">{date}</p></div>)}
-                </div>
-                {timeRange.map((range: string, index: number) => (
-                    <div key={index} className="grid grid-cols-8 gap-2">
-                        <p className="font-bold  text-xs" key={index}>{range}</p>
-                        {forthSevenDays.map((date: number) => (
-                            <div key={`${range}${date}`}>
-                                <Cell
-                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    onSelect={setSelectedValue}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-                <div className="py-8">
-                    <hr></hr>
-                </div>
-                <div className="grid grid-cols-8 gap-2">
-                    <div className="font-bold"></div>
-                    {lastDays.map((date: number) =>
-                        <div key={date}><p className="font-bold">{date}</p></div>)}
-                </div>
-                {timeRange.map((range: string, index: number) => (
-                    <div key={index} className="grid grid-cols-8 gap-2">
-                        <p className="font-bold text-xs" key={index}>{range}</p>
-                        {lastDays.map((date: number) => (
-                            <div key={`${range}${date}`}>
-                                <Cell
-                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
-                                    onSelect={setSelectedValue}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                            {
+                                timeRange.map((range: string, index: number) => (
+                                    <div key={index} className="grid grid-cols-8 gap-2">
+                                        <p className="font-bold text-xs">{range}</p>
+                                        {firstSevenDays.map((date: number) => (
+                                            <div key={`${range}${date}`}>
+                                                <Cell
+                                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
+                                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
+                                                    onSelect={setSelectedValue}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))
+                            }
+                            {index !== datesArray.length - 1 && (
+                                <div className="py-8">
+                                    <hr />
+                                </div>
+                            )}
+                        </>
+                    )}
+                </>
             </div>
-        </div>
+        </div >
     )
 }
 
