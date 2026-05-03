@@ -54,7 +54,7 @@ const MobileCalender = ({ selectedValue, setSelectedValue, bookedValue, currentM
             <div className="max-w-300 text-center p-3 flex flex-col justify-center">
                 <>
                     {datesArray.map((dates, index) =>
-                        <>
+                        <div key={index}>
                             <div className="grid grid-cols-8 gap-2">
                                 <div></div>
                                 {dates.map((date: number) =>
@@ -83,7 +83,7 @@ const MobileCalender = ({ selectedValue, setSelectedValue, bookedValue, currentM
                                     <hr />
                                 </div>
                             )}
-                        </>
+                        </div>
                     )}
                 </>
             </div>

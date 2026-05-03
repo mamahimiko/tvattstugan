@@ -64,7 +64,7 @@ export default function Home() {
   }
 
   return (
-    <div className="text-center bg-company-background shadow-xl/30 md:mx-10 lg:mx-10" >
+    <div className="lg:max-w-400 text-center bg-company-background shadow-xl/30 md:mx-10 lg:mx-10" >
       <div className="flex place-content-between m-2 text-gray-400">
         <AiFillPlusCircle />
         <AiFillPlusCircle />
@@ -74,7 +74,7 @@ export default function Home() {
       </div>
       <div className="md: p-5">
         <p className="text-1xl">You Booked </p>
-        <p className="text-3xl font-bold">{showBookedDate}</p>
+        <p className="text-3xl font-bold underline">{showBookedDate}</p>
       </div>
       <div className="flex justify-center py-8">
         {isMobile ? (

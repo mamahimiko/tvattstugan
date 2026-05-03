@@ -30,7 +30,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Header />
-        {children}</body>
+        <div className="flex flex-col items-center lg:my-10">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

@@ -39,7 +39,7 @@ const Calender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIn
             <div className="max-w-300 text-center lg:p-1 xl:p-5 flex flex-col justify-center">
                 <>
                     {datesArray.map((dates, index) =>
-                        <>
+                        <div key={index}>
                             <div className="grid grid-cols-17 gap-4">
                                 <div className=""></div>
                                 {dates.map((date: number) =>
@@ -65,8 +65,9 @@ const Calender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIn
                             {index !== datesArray.length - 1 && (
                                 <div className="py-8">
                                     <hr />
-                                </div>)}
-                        </>
+                                </div>
+                            )}
+                        </div>
                     )}
                 </>
             </div>
