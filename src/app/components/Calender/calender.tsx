@@ -6,13 +6,15 @@ import Cell from "./cell"
 type calenderProps = {
     selectedValue: string | null,
     setSelectedValue: (date: string | null) => void,
+    bookedValue: string | null,
     currentMonthIndex: number,
     selectedYear: number,
+    handleCancel: () => void
     onNext: () => void,
     onPrev: () => void
 }
 
-const Calender = ({ selectedValue, setSelectedValue, currentMonthIndex, selectedYear, onNext, onPrev }: calenderProps) => {
+const Calender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIndex, selectedYear, handleCancel, onNext, onPrev }: calenderProps) => {
 
 
     const disabledays = getDaysInMonth(selectedYear, currentMonthIndex + 1)
@@ -38,20 +40,22 @@ const Calender = ({ selectedValue, setSelectedValue, currentMonthIndex, selected
                 <>
                     {datesArray.map((dates, index) =>
                         <>
-                            <div className="grid grid-cols-16 gap-4">
+                            <div className="grid grid-cols-17 gap-4">
                                 <div className=""></div>
-                                {firstHalfDate.map((date: number) =>
+                                {dates.map((date: number) =>
                                     <div key={date}><p className="font-bold">{date}</p></div>)}
                             </div>
                             {timeRange.map((range: string, index: number) => (
-                                <div key={index} className="grid grid-cols-16 gap-4">
+                                <div key={index} className="grid grid-cols-17 gap-4">
                                     <p className="font-bold lg:text-[12px] xl:text-[14px]">{range}</p>
-                                    {firstHalfDate.map((date: number) => (
+                                    {dates.map((date: number) => (
                                         <div className="w-15" key={`${range}${date}`}>
                                             <Cell
                                                 value={`${date},${currentMonthIndex},${selectedYear},${range}`}
                                                 selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
+                                                booked={bookedValue}
                                                 onSelect={setSelectedValue}
+                                                onCancel={handleCancel}
                                             />
                                         </div>
                                     ))}
@@ -62,7 +66,6 @@ const Calender = ({ selectedValue, setSelectedValue, currentMonthIndex, selected
                                 <div className="py-8">
                                     <hr />
                                 </div>)}
-
                         </>
                     )}
                 </>

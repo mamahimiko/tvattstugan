@@ -22,7 +22,7 @@ export default function Home() {
     setBookedValue(latestBookedValue)
   }, [])
 
-  const nextMonthToggle = () => {
+  const nextMonthButton = () => {
     const nextMonth = (currentMonthIndex + 1) % monthArray.length;
     setCurrentMonthIndex(nextMonth);
 
@@ -31,7 +31,7 @@ export default function Home() {
     }
   }
 
-  const backMonthToggle = () => {
+  const backMonthButton = () => {
     const backMonth = (currentMonthIndex + (monthArray.length - 1)) % monthArray.length;
     setCurrentMonthIndex(backMonth);
     if (currentMonthIndex === 11) {
@@ -53,9 +53,15 @@ export default function Home() {
     if (selectedValue) {
       localStorage.setItem("bookedDate", selectedValue)
     }
-
   }
 
+  const cancelHandleClick = () => {
+    if (bookedValue) {
+      localStorage.removeItem("bookedDate");
+      setBookedValue(null)
+      setSelectedValue(null)
+    }
+  }
 
   return (
     <div className="text-center bg-company-background shadow-xl/30 md:mx-10 lg:mx-10" >
@@ -68,25 +74,29 @@ export default function Home() {
       </div>
       <div className="md: p-5">
         <p className="text-1xl">You Booked </p>
-        <p className="text-3xl">{showBookedDate}</p>
+        <p className="text-3xl font-bold">{showBookedDate}</p>
       </div>
       <div className="flex justify-center py-8">
         {isMobile ? (
           <MobileCalender
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
+            bookedValue={bookedValue}
+            handleCancel={cancelHandleClick}
             currentMonthIndex={currentMonthIndex}
             selectedYear={selectedYear}
-            onNext={nextMonthToggle}
-            onPrev={backMonthToggle} />
+            onNext={nextMonthButton}
+            onPrev={backMonthButton} />
         ) : (
           < Calender
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
+            bookedValue={bookedValue}
+            handleCancel={cancelHandleClick}
             currentMonthIndex={currentMonthIndex}
             selectedYear={selectedYear}
-            onNext={nextMonthToggle}
-            onPrev={backMonthToggle} />
+            onNext={nextMonthButton}
+            onPrev={backMonthButton} />
         )
         }
       </div>

@@ -6,13 +6,15 @@ import Cell from "./cell"
 type calenderProps = {
     selectedValue: string | null,
     setSelectedValue: (date: string | null) => void,
+    bookedValue: string | null,
     currentMonthIndex: number,
     selectedYear: number,
+    handleCancel: () => void
     onNext: () => void,
     onPrev: () => void
 }
 
-const MobileCalender = ({ selectedValue, setSelectedValue, currentMonthIndex, selectedYear, onNext, onPrev }: calenderProps) => {
+const MobileCalender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIndex, selectedYear, handleCancel, onNext, onPrev }: calenderProps) => {
 
 
     const disabledays = getDaysInMonth(selectedYear, currentMonthIndex + 1)
@@ -55,19 +57,21 @@ const MobileCalender = ({ selectedValue, setSelectedValue, currentMonthIndex, se
                         <>
                             <div className="grid grid-cols-8 gap-2">
                                 <div></div>
-                                {firstSevenDays.map((date: number) =>
+                                {dates.map((date: number) =>
                                     <div key={date}><p className="font-bold">{date}</p></div>)}
                             </div>
                             {
                                 timeRange.map((range: string, index: number) => (
                                     <div key={index} className="grid grid-cols-8 gap-2">
                                         <p className="font-bold text-xs">{range}</p>
-                                        {firstSevenDays.map((date: number) => (
+                                        {dates.map((date: number) => (
                                             <div key={`${range}${date}`}>
                                                 <Cell
                                                     value={`${date},${currentMonthIndex},${selectedYear},${range}`}
                                                     selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
+                                                    booked={bookedValue}
                                                     onSelect={setSelectedValue}
+                                                    onCancel={handleCancel}
                                                 />
                                             </div>
                                         ))}
