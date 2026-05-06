@@ -1,23 +1,28 @@
 import { LuLockKeyhole, LuLockKeyholeOpen } from "react-icons/lu";
+import { Booking } from "@/app/types/types";
 
 type CellProps = {
-    value: string,
+    booking: Booking,
     selected: boolean,
-    booked: string | null,
-    onSelect: (value: string) => void
-    onCancel: (value: string) => void
-
+    booked: Booking | null,
+    onSelect: (booking: Booking) => void
+    onCancel: () => void
 }
 
-const Cell = ({ value, selected, booked, onSelect, onCancel }: CellProps) => {
 
-    const isBooked = booked === value
+const Cell = ({ booking, selected, booked, onSelect, onCancel }: CellProps) => {
+
+
+    const isBooked = booked?.date === booking.date &&
+        booked?.month === booking.month &&
+        booked?.year === booking.year &&
+        booked?.timeRange === booking.timeRange
 
     return (
         <div className="w-full h-full cursor-pointer flex items-center justify-center hover:bg-sky-700 transition">
             {(isBooked) ? (
-                <div onClick={() => onCancel(value)} className="group flex items-center justify-center w-full h-full hover:bg-black/30 transition">
-                    <LuLockKeyhole className="w-6 h-6 group-hover:hidden transition" />
+                <div onClick={() => onCancel()} className="group flex items-center justify-center w-full h-full hover:bg-black/30 transition">
+                    <LuLockKeyhole className="w-6 h-6 group-hover:hidden transition animate-tada" />
                     <LuLockKeyholeOpen className="w-6 h-6 hidden group-hover:block transition" />
                 </div>
 
@@ -25,9 +30,8 @@ const Cell = ({ value, selected, booked, onSelect, onCancel }: CellProps) => {
                 <div className="hover:bg-sky-700">
                     <input
                         type="radio"
-                        value={value}
                         checked={selected}
-                        onChange={() => onSelect(value)}
+                        onChange={() => onSelect(booking)}
                         name="bookDate"
                         className="accent-company-primary"
                     />

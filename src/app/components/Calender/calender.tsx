@@ -2,11 +2,12 @@
 import { timeRange, getDaysInMonth } from "./calenderData"
 import ThisDate from "./thisData"
 import Cell from "./cell"
+import { Booking } from "@/app/types/types"
 
 type calenderProps = {
-    selectedValue: string | null,
-    setSelectedValue: (date: string | null) => void,
-    bookedValue: string | null,
+    selectedValue: Booking | null,
+    setSelectedValue: (booking: Booking | null) => void,
+    bookedValue: Booking | null,
     currentMonthIndex: number,
     selectedYear: number,
     handleCancel: () => void
@@ -23,7 +24,6 @@ const Calender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIn
     for (let i: number = 1; i < 16; i++) {
         firstHalfDate.push(i)
     }
-    console.log(firstHalfDate)
 
     let secondHalfDate: number[] = []
     for (let i: number = 16; i <= disabledays; i++) {
@@ -31,7 +31,6 @@ const Calender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIn
     }
 
     const datesArray: number[][] = [firstHalfDate, secondHalfDate]
-    console.log(datesArray)
 
     return (
         <div className="">
@@ -51,8 +50,12 @@ const Calender = ({ selectedValue, setSelectedValue, bookedValue, currentMonthIn
                                     {dates.map((date: number) => (
                                         <div className="w-15" key={`${range}${date}`}>
                                             <Cell
-                                                value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                                selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
+                                                booking={{ date, month: currentMonthIndex, year: selectedYear, timeRange: range }}
+                                                selected={
+                                                    selectedValue?.date === date &&
+                                                    selectedValue?.month === currentMonthIndex &&
+                                                    selectedValue?.year === selectedYear &&
+                                                    selectedValue?.timeRange === range}
                                                 booked={bookedValue}
                                                 onSelect={setSelectedValue}
                                                 onCancel={handleCancel}

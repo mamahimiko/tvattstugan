@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { thisYear, thisMonth, monthArray } from "./components/Calender/calenderData";
 import { dateFormat } from "./components/Data/data";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { Booking } from "./types/types";
 
 export default function Home() {
   const isMobile = useIsMobile()
@@ -14,13 +15,18 @@ export default function Home() {
 
   const [currentMonthIndex, setCurrentMonthIndex] = useState<number>(thisMonthIndex)
   const [selectedYear, setSelectedYear] = useState<number>(thisYear)
-  const [selectedValue, setSelectedValue] = useState<string | null>(null)
-  const [bookedValue, setBookedValue] = useState<string | null>("")
+  const [selectedValue, setSelectedValue] = useState<Booking | null>(null)
+  const [bookedValue, setBookedValue] = useState<Booking | null>(null)
 
   useEffect(() => {
     let latestBookedValue = localStorage.getItem("bookedDate")
-    setBookedValue(latestBookedValue)
+    if (latestBookedValue) {
+      setBookedValue(JSON.parse(latestBookedValue))
+    }
+
+
   }, [])
+
 
   const nextMonthButton = () => {
     const nextMonth = (currentMonthIndex + 1) % monthArray.length;
@@ -39,19 +45,17 @@ export default function Home() {
     }
   }
 
-  const bookedValueArray = bookedValue?.split(",")
-  const BookedMonthIndex = bookedValueArray ? Number(bookedValueArray[1]) : null;
-  const bookedDate = bookedValueArray ? Number(bookedValueArray[0]) : null;
+
   const showBookedDate =
-    bookedValueArray && bookedValueArray.length >= 4 && bookedDate !== null && BookedMonthIndex !== null
-      ? `${bookedDate}${dateFormat(bookedDate)} ${monthArray[BookedMonthIndex]} ${bookedValueArray[3]}`
+    bookedValue
+      ? `${bookedValue.date}${dateFormat(bookedValue.date)} ${monthArray[bookedValue.month]} ${bookedValue.timeRange}`
       : "Select the date!"
 
 
   const bookHandleClick = () => {
     setBookedValue(selectedValue)
     if (selectedValue) {
-      localStorage.setItem("bookedDate", selectedValue)
+      localStorage.setItem("bookedDate", JSON.stringify(selectedValue))
     }
   }
 
@@ -59,7 +63,6 @@ export default function Home() {
     if (bookedValue) {
       localStorage.removeItem("bookedDate");
       setBookedValue(null)
-      setSelectedValue(null)
     }
   }
 

@@ -2,11 +2,12 @@
 import { timeRange, getDaysInMonth } from "./calenderData"
 import ThisDate from "./thisData"
 import Cell from "./cell"
+import { Booking } from "@/app/types/types"
 
 type calenderProps = {
-    selectedValue: string | null,
-    setSelectedValue: (date: string | null) => void,
-    bookedValue: string | null,
+    selectedValue: Booking | null,
+    setSelectedValue: (booking: Booking | null) => void,
+    bookedValue: Booking | null,
     currentMonthIndex: number,
     selectedYear: number,
     handleCancel: () => void
@@ -67,8 +68,12 @@ const MobileCalender = ({ selectedValue, setSelectedValue, bookedValue, currentM
                                         {dates.map((date: number) => (
                                             <div key={`${range}${date}`}>
                                                 <Cell
-                                                    value={`${date},${currentMonthIndex},${selectedYear},${range}`}
-                                                    selected={selectedValue === `${date},${currentMonthIndex},${selectedYear},${range}`}
+                                                    booking={{ date, month: currentMonthIndex, year: selectedYear, timeRange: range }}
+                                                    selected={
+                                                        selectedValue?.date === date &&
+                                                        selectedValue?.month === currentMonthIndex &&
+                                                        selectedValue?.year === selectedYear &&
+                                                        selectedValue?.timeRange === range}
                                                     booked={bookedValue}
                                                     onSelect={setSelectedValue}
                                                     onCancel={handleCancel}
